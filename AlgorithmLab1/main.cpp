@@ -105,7 +105,7 @@ int main()
 			cout << "Значение удалено" << endl;
 			break;
 		case 12:
-			arr.ShowList();
+			arr.Print();
 			break;
 		case 13:
 			arr.Viewed();
@@ -119,11 +119,11 @@ int main()
 			cout << "Значение end() присвоено итератору" << endl;
 			break;
 		case 16:
-			++it;
+			it++;
 			cout << "Операция выполнена" << endl;
 			break;
 		case 17:
-			--it;
+			it--;
 			cout << "Операция выполнена" << endl;
 			break;
 		case 18:

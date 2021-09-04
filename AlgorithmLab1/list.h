@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <iostream>
 #include <string>
 
@@ -11,11 +10,7 @@ class List
 	class Element
 	{
 	public:
-		Element(Element* next, T data = T())
-		{
-			this->data = data;
-			this->next = next;
-		}
+		Element(Element* next, T data = T());
 		T data;
 		Element* next;
 	};
@@ -39,7 +34,7 @@ public:
 	void AddAtIndex(int index, T value);		// Включение нового значения с индексом
 	void DeleteValue(T value);		// Удаление значения из списка
 	void DeleteAtIndex(int index);		// Удаление значения из заданного индекса
-	void ShowList();		// Вывод списка
+	void Print();		// Вывод списка
 	void Viewed();		// Вывод кол-во просмотренных э-ов списка
 
 	class Iterator
@@ -47,77 +42,22 @@ public:
 	public:
 		Element* obj;
 
-		T& operator*()
-		{
-			return obj->data;
-		}		// Доступ по чтению/записи
-		Iterator& operator ++()
-		{
-			obj = obj->next;
-			return *this;
-		}		// Оператор префиксного инкремента
-		Iterator& operator --()
-		{
-			Element* target = obj;
-			while (obj->next != target)
-			{
-				obj = obj->next;
-			}
-			return *this;
-		}		// Оператор префиксного
-		Iterator operator++(int)
-		{
-			Iterator it = *this;
-			obj = obj->next;
-			return it;
-		} // версия постфикс
-		Iterator operator--(int)
-		{
-			Iterator it = *this;
-			Element* target = obj;
-			while (obj->next != target)
-			{
-				obj = obj->next;
-			}
-			return it;
-		} // версия постфикс
-		bool operator ==(const Iterator& it)
-		{
-			if (obj->next == it.obj->next) return true;
-			else return false;
-		}		// Проверка равенства
-		bool operator !=(const Iterator& it)
-		{
-			if (obj->next != it.obj->next) return true;
-			else return false;
-		}		// Проверка неравенства 
+		T& operator*();
+		Iterator operator++(int);
+		Iterator operator--(int);
+		bool operator ==(const Iterator& it);
+		bool operator !=(const Iterator& it);
 	};
-
-	Iterator begin()
-	{
-		Iterator it;
-		it.obj = head;
-		return it;
-	}
-	Iterator end()
-	{
-		if (!IsEmpty())
-		{
-			Iterator it;
-			it.obj = head;
-			while (it.obj->next != head)
-			{
-				it.obj = it.obj->next;
-			}
-			return it;
-		}
-		else {
-			Iterator it;
-			it.obj = head;
-			return it;
-		}
-	}
+	Iterator begin();
+	Iterator end();
 };
+
+template<typename T>
+inline List<T>::Element::Element(Element* next, T data)
+{
+	this->data = data;
+	this->next = next;
+}
 
 template<typename T>
 inline List<T>::List()
@@ -340,7 +280,7 @@ inline void List<T>::DeleteAtIndex(int index)
 }
 
 template<typename T>
-inline void List<T>::ShowList()
+inline void List<T>::Print()
 {
 	cout << "Список:\n";
 	if (GetSize() == 0) cout << "Пуст" << endl;
@@ -355,4 +295,72 @@ template<typename T>
 inline void List<T>::Viewed()
 {
 	cout << "Просмотрено элементов в прошлой операции: " << viewed << " \n";
+}
+
+template<typename T>
+inline List<T>::Iterator List<T>::begin()
+{
+	Iterator it;
+	it.obj = head;
+	return it;
+}
+
+template<typename T>
+inline List<T>::Iterator List<T>::end()
+{
+	if (!IsEmpty())
+	{
+		Iterator it;
+		it.obj = head;
+		while (it.obj->next != head)
+		{
+			it.obj = it.obj->next;
+		}
+		return it;
+	}
+	else {
+		Iterator it;
+		it.obj = head;
+		return it;
+	}
+}
+
+template<typename T>
+inline T& List<T>::Iterator::operator*()
+{
+	return obj->data;
+}
+
+template<typename T>
+inline List<T>::Iterator List<T>::Iterator::operator++(int)
+{
+	Iterator it = *this;
+	obj = obj->next;
+	return it;
+}
+
+template<typename T>
+inline List<T>::Iterator List<T>::Iterator::operator--(int)
+{
+	Iterator it = *this;
+	Element* target = obj;
+	while (obj->next != target)
+	{
+		obj = obj->next;
+	}
+	return it;
+}
+
+template<typename T>
+inline bool List<T>::Iterator::operator==(const Iterator& it)
+{
+	if (obj->next == it.obj->next) return true;
+	else return false;
+}
+
+template<typename T>
+inline bool List<T>::Iterator::operator!=(const Iterator& it)
+{
+	if (obj->next != it.obj->next) return true;
+	else return false;
 }
