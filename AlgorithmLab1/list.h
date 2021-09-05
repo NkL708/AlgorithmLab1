@@ -354,13 +354,13 @@ inline List<T>::Iterator List<T>::Iterator::operator--(int)
 template<typename T>
 inline bool List<T>::Iterator::operator==(const Iterator& it)
 {
-	if (obj->next == it.obj->next) return true;
+	if (obj == it.obj) return true;
 	else return false;
 }
 
 template<typename T>
 inline bool List<T>::Iterator::operator!=(const Iterator& it)
 {
-	if (obj->next != it.obj->next) return true;
+	if (obj != it.obj) return true;
 	else return false;
 }
