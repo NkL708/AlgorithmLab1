@@ -1,17 +1,18 @@
 #include "List.h"
+#define TYPE string
 
 int main()
 {
 	setlocale(LC_ALL, "Rus");
 	int sw;
 	bool exit = false;
-	List<string> arr;
-	List<string>::Iterator it;
+	List<TYPE> list;
+	List<TYPE>::Iterator it;
 
 	while (!exit) {
 		sw = NULL;
 		int index;
-		string value;
+		TYPE value;
 		cout << endl;
 		cout << "1. Получить размер списка" << endl;
 		cout << "2. Очистка списка" << endl;
@@ -40,119 +41,90 @@ int main()
 		cin >> sw;
 		switch (sw) {
 		case 1:
-			cout << "Размер списка " << arr.GetSize() << endl;
+			cout << "Размер списка " << list.GetSize() << endl;
 			break;
 		case 2:
-			arr.Clear();
-			cout << "Список очищен" << endl;
+			list.Clear();
 			break;
 		case 3:
-			if (arr.IsEmpty())
-				cout << "true" << endl;
-			else
-				cout << "false" << endl;
+			cout << list.IsEmpty();
 			break;
 		case 4:
 			cout << "Введите значение, наличие которого хотите проверить" << endl;
 			cin >> value;
-			if (arr.IsContain(value))
-				cout << "true" << endl;
-			else
-				cout << "false" << endl;
+			cout << list.IsContain(value);
 			break;
 		case 5:
 			cout << "Введите индекс: " << endl;
 			cin >> index;
-			cout << arr.GetValue(index) << endl;
+			cout << list.GetValue(index) << endl;
 			break;
 		case 6:
 			cout << "Введите индекс: " << endl;
 			cin >> index;
 			cout << "Введите значение: " << endl;
 			cin >> value;
-			arr.ChangeValue(index, value);
-			cout << "Значение изменено" << endl;
+			list.ChangeValue(index, value);
 			break;
 		case 7:
 			cout << "Введите значение: " << endl;
 			cin >> value;
-			cout << arr.GetIndex(value) << endl;
+			cout << list.GetIndex(value) << endl;
 			break;
 		case 8:
 			cout << "Введите значение: " << endl;
 			cin >> value;
-			arr.Add(value);
-			cout << "Значение добавлено" << endl;
+			list.Add(value);
 			break;
 		case 9:
 			cout << "Введите индекс: " << endl;
 			cin >> index;
 			cout << "Введите значение: " << endl;
 			cin >> value;
-			arr.AddAtIndex(index, value);
-			cout << "Значение добавлено" << endl;
+			list.AddAtIndex(index, value);
 			break;
 		case 10:
 			cout << "Введите значение: " << endl;
 			cin >> value;
-			arr.DeleteValue(value);
-			cout << "Значение удалено" << endl;
+			list.DeleteValue(value);
 			break;
 		case 11:
 			cout << "Введите индекс: " << endl;
 			cin >> index;
-			arr.DeleteAtIndex(index);
-			cout << "Значение удалено" << endl;
+			list.DeleteAtIndex(index);
 			break;
 		case 12:
-			arr.Print();
+			list.Print();
 			break;
 		case 13:
-			arr.Viewed();
+			list.Viewed();
 			break;
 		case 14:
-			it = arr.begin();
-			cout << "Значение begin() присвоено итератору" << endl;
+			it = list.begin();
 			break;
 		case 15:
-			it = arr.end();
-			cout << "Значение end() присвоено итератору" << endl;
+			it = list.end();
 			break;
 		case 16:
 			it++;
-			cout << "Операция выполнена" << endl;
 			break;
 		case 17:
 			it--;
-			cout << "Операция выполнена" << endl;
 			break;
 		case 18:
-			if (it == arr.begin())
-				cout << "true" << endl;
-			else
-				cout << "false" << endl;
+			cout << (it == list.begin());
 			break;
 		case 19:
-			if (it == arr.end())
-				cout << "true" << endl;
-			else
-				cout << "false" << endl;
+			cout << (it == list.end());
 			break;
 		case 20:
-			if (it != arr.begin())
-				cout << "true" << endl;
-			else
-				cout << "false" << endl;
+			cout << (it != list.begin());
 			break;
 		case 21:
-			if (it != arr.end())
-				cout << "true" << endl;
-			else
-				cout << "false" << endl;
+			cout << (it != list.end());
 			break;
 		case 22:
 			exit = true;
-			cout << "Выход из программы.." << endl;
 			break;
 		default:
 			cout << "Данного индекса не существует" << endl;
