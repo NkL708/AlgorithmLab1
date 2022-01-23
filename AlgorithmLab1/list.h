@@ -76,8 +76,7 @@ template<typename T>
 inline List<T>::List(const List& obj)
 {
 	Element* current = obj.head;
-	do
-	{
+	do {
 		this->Add(current->data);
 		current = current->next;
 	} while (current != obj.head);
@@ -92,8 +91,7 @@ inline int List<T>::GetSize()
 template<typename T>
 inline void List<T>::Clear()
 {
-	while (size > 0)
-	{
+	while (size > 0) {
 		Element* temp = head;
 		head = head->next;
 		delete temp;
@@ -104,10 +102,12 @@ inline void List<T>::Clear()
 template<typename T>
 inline bool List<T>::IsEmpty()
 {
-	if (size == 0 || head == nullptr)
+	if (size == 0 || head == nullptr) {
 		return true;
-	else
+	}	
+	else {
 		return false;
+	}
 }
 
 template<typename T>
@@ -115,10 +115,10 @@ inline bool List<T>::IsContain(T value)
 {
 	viewed = 1;
 	Element* current = head;
-	do
-	{
-		if (current->data == value)
+	do {
+		if (current->data == value) {
 			return true;
+		}
 		current = current->next;
 		viewed++;
 	} while (current != head);
@@ -132,8 +132,7 @@ inline T List<T>::GetValue(int index)
 	viewed = 1;
 	int i = 0;
 	Element* current = head;
-	while (i != index)
-	{
+	while (i != index) {
 		current = current->next;
 		viewed++;
 		i++;
@@ -147,8 +146,7 @@ inline void List<T>::ChangeValue(int index, T value)
 	viewed = 1;
 	int i = 0;
 	Element* current = head;
-	while (i != index)
-	{
+	while (i != index) {
 		current = current->next;
 		viewed++;
 		i++;
@@ -162,10 +160,10 @@ inline int List<T>::GetIndex(T value)
 	viewed = 1;
 	int index = 0;
 	Element* current = head;
-	do
-	{
-		if (current->data == value)
+	do {
+		if (current->data == value) {
 			return index;
+		}
 		current = current->next;
 		viewed++;
 		index++;
@@ -177,18 +175,15 @@ template<typename T>
 inline void List<T>::Add(T value)
 {
 	viewed = 1;
-	if (head != nullptr)
-	{
+	if (head != nullptr) {
 		Element* current = head;
-		while (current->next != head)
-		{
+		while (current->next != head) {
 			current = current->next;
 			viewed++;
 		}
 		current->next = new Element(head, value);
 	}
-	else
-	{
+	else {
 		head = new Element(nullptr, value);
 		head->next = head;
 	}
@@ -199,14 +194,12 @@ template<typename T>
 inline void List<T>::AddAtIndex(int index, T value)
 {
 	viewed = 1;
-	if (index == 0)
-	{
+	if (index == 0) {
 		viewed = 0;
 		Element* temp = head;
 		head = new Element(temp, value);
 		Element* current = temp;
-		while (current->next != temp)
-		{
+		while (current->next != temp) {
 			current = current->next;
 			viewed++;
 		}
@@ -216,8 +209,7 @@ inline void List<T>::AddAtIndex(int index, T value)
 	}
 	int i = 0;
 	Element* current = head;
-	while (i < index - 1)
-	{
+	while (i < index - 1) {
 		current = current->next;
 		viewed++;
 		i++;
@@ -233,10 +225,8 @@ inline void List<T>::DeleteValue(T value)
 	viewed = 1;
 	int index = 0;
 	Element* current = head;
-	do
-	{
-		if (current->data == value)
-		{
+	do {
+		if (current->data == value) {
 			DeleteAtIndex(index);
 			return;
 		}
@@ -250,12 +240,10 @@ template<typename T>
 inline void List<T>::DeleteAtIndex(int index)
 {
 	viewed = 1;
-	if (index == 0)
-	{
+	if (index == 0) {
 		Element* temp = head;
 		Element* current = head;
-		while (current->next != head)
-		{
+		while (current->next != head) {
 			current = current->next;
 			viewed++;
 		}
@@ -267,8 +255,7 @@ inline void List<T>::DeleteAtIndex(int index)
 	}
 	int i = 0;
 	Element* current = head;
-	while (i < index - 1)
-	{
+	while (i < index - 1) {
 		current = current->next;
 		viewed++;
 		i++;
@@ -283,9 +270,10 @@ template<typename T>
 inline void List<T>::Print()
 {
 	cout << "Список:\n";
-	if (GetSize() == 0) cout << "Пуст" << endl;
-	for (int i = 0; i < GetSize(); i++)
-	{
+	if (GetSize() == 0) {
+		cout << "Пуст" << endl;
+	}
+	for (int i = 0; i < GetSize(); i++) {
 		cout << GetValue(i) << endl;
 	}
 	cout << endl;
@@ -308,18 +296,15 @@ inline List<T>::Iterator List<T>::begin()
 template<typename T>
 inline List<T>::Iterator List<T>::end()
 {
-	if (!IsEmpty())
-	{
-		Iterator it;
+	Iterator it;
+	if (!IsEmpty()) {
 		it.obj = head;
-		while (it.obj->next != head)
-		{
+		while (it.obj->next != head) {
 			it.obj = it.obj->next;
 		}
 		return it;
 	}
 	else {
-		Iterator it;
 		it.obj = head;
 		return it;
 	}
@@ -344,8 +329,7 @@ inline List<T>::Iterator List<T>::Iterator::operator--(int)
 {
 	Iterator it = *this;
 	Element* target = obj;
-	while (obj->next != target)
-	{
+	while (obj->next != target) {
 		obj = obj->next;
 	}
 	return it;
@@ -354,13 +338,21 @@ inline List<T>::Iterator List<T>::Iterator::operator--(int)
 template<typename T>
 inline bool List<T>::Iterator::operator==(const Iterator& it)
 {
-	if (obj == it.obj) return true;
-	else return false;
+	if (obj == it.obj) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 template<typename T>
 inline bool List<T>::Iterator::operator!=(const Iterator& it)
 {
-	if (obj != it.obj) return true;
-	else return false;
+	if (obj != it.obj) {
+		return true;
+	}	
+	else {
+		return false;
+	}
 }
