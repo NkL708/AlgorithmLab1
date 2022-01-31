@@ -2,8 +2,6 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 template <typename T>
 class List
 {
@@ -15,27 +13,27 @@ class List
 		Element* next;
 	};
 
-	int viewed = 0;
+	int elemViewed = 0;
 	Element* head;
-	int size;
+	int size; 
 
 public:
 	List();		// К-ор
 	~List();	// Д-ор
 	List(const List& obj);		// К-ор копирования
-	int GetSize();		// Размер списка
-	void Clear();		// Очистка списка
-	bool IsEmpty();		// Проверка на пустоту
-	bool IsContain(T value);		// Содержит ли заданное значение 
-	T GetValue(int index);		// Чтение значения под индексом
-	void ChangeValue(int index, T value);		// Изменение значения под индексом
-	int GetIndex(T value);		// Получение позиции в списке для заданного значения
-	void Add(T value);		// Включение нового значения
-	void AddAtIndex(int index, T value);		// Включение нового значения с индексом
-	void DeleteValue(T value);		// Удаление значения из списка
-	void DeleteAtIndex(int index);		// Удаление значения из заданного индекса
-	void Print();		// Вывод списка
-	void Viewed();		// Вывод кол-во просмотренных э-ов списка
+	int getSize();		// Размер списка
+	void clear();		// Очистка списка
+	bool isEmpty();		// Проверка на пустоту
+	bool isContain(T value);		// Содержит ли заданное значение 
+	T getValue(int index);		// Чтение значения под индексом
+	void changeValue(int index, T value);		// Изменение значения под индексом
+	int getIndex(T value);		// Получение позиции в списке для заданного значения
+	void add(T value);		// Включение нового значения
+	void addAtIndex(int index, T value);		// Включение нового значения с индексом
+	void deleteValue(T value);		// Удаление значения из списка
+	void deleteAtIndex(int index);		// Удаление значения из заданного индекса
+	void print();		// Вывод списка
+	void viewed();		// Вывод кол-во просмотренных э-ов списка
 
 	class Iterator
 	{
@@ -69,7 +67,7 @@ inline List<T>::List()
 template<typename T>
 inline List<T>::~List()
 {
-	Clear();
+	clear();
 }
 
 template<typename T>
@@ -77,19 +75,19 @@ inline List<T>::List(const List& obj)
 {
 	Element* current = obj.head;
 	do {
-		this->Add(current->data);
+		this->add(current->data);
 		current = current->next;
 	} while (current != obj.head);
 }
 
 template<typename T>
-inline int List<T>::GetSize()
+inline int List<T>::getSize()
 {
 	return this->size;
 }
 
 template<typename T>
-inline void List<T>::Clear()
+inline void List<T>::clear()
 {
 	while (size > 0) {
 		Element* temp = head;
@@ -100,7 +98,7 @@ inline void List<T>::Clear()
 }
 
 template<typename T>
-inline bool List<T>::IsEmpty()
+inline bool List<T>::isEmpty()
 {
 	if (size == 0 || head == nullptr) {
 		return true;
@@ -111,53 +109,52 @@ inline bool List<T>::IsEmpty()
 }
 
 template<typename T>
-inline bool List<T>::IsContain(T value)
+inline bool List<T>::isContain(T value)
 {
-	viewed = 1;
+	elemViewed = 1;
 	Element* current = head;
 	do {
 		if (current->data == value) {
 			return true;
 		}
 		current = current->next;
-		viewed++;
+		elemViewed++;
 	} while (current != head);
-
 	return false;
 }
 
 template<typename T>
-inline T List<T>::GetValue(int index)
+inline T List<T>::getValue(int index)
 {
-	viewed = 1;
+	elemViewed = 1;
 	int i = 0;
 	Element* current = head;
 	while (i != index) {
 		current = current->next;
-		viewed++;
+		elemViewed++;
 		i++;
 	}
 	return current->data;
 }
 
 template<typename T>
-inline void List<T>::ChangeValue(int index, T value)
+inline void List<T>::changeValue(int index, T value)
 {
-	viewed = 1;
+	elemViewed = 1;
 	int i = 0;
 	Element* current = head;
 	while (i != index) {
 		current = current->next;
-		viewed++;
+		elemViewed++;
 		i++;
 	}
 	current->data = value;
 }
 
 template<typename T>
-inline int List<T>::GetIndex(T value)
+inline int List<T>::getIndex(T value)
 {
-	viewed = 1;
+	elemViewed = 1;
 	int index = 0;
 	Element* current = head;
 	do {
@@ -165,21 +162,21 @@ inline int List<T>::GetIndex(T value)
 			return index;
 		}
 		current = current->next;
-		viewed++;
+		elemViewed++;
 		index++;
 	} while (current != head);
 	return -1;
 }
 
 template<typename T>
-inline void List<T>::Add(T value)
+inline void List<T>::add(T value)
 {
-	viewed = 1;
+	elemViewed = 1;
 	if (head != nullptr) {
 		Element* current = head;
 		while (current->next != head) {
 			current = current->next;
-			viewed++;
+			elemViewed++;
 		}
 		current->next = new Element(head, value);
 	}
@@ -191,17 +188,17 @@ inline void List<T>::Add(T value)
 }
 
 template<typename T>
-inline void List<T>::AddAtIndex(int index, T value)
+inline void List<T>::addAtIndex(int index, T value)
 {
-	viewed = 1;
+	elemViewed = 1;
 	if (index == 0) {
-		viewed = 0;
+		elemViewed = 0;
 		Element* temp = head;
 		head = new Element(temp, value);
 		Element* current = temp;
 		while (current->next != temp) {
 			current = current->next;
-			viewed++;
+			elemViewed++;
 		}
 		current->next = head;
 		size++;
@@ -211,7 +208,7 @@ inline void List<T>::AddAtIndex(int index, T value)
 	Element* current = head;
 	while (i < index - 1) {
 		current = current->next;
-		viewed++;
+		elemViewed++;
 		i++;
 	}
 	Element* temp = current->next;
@@ -220,32 +217,32 @@ inline void List<T>::AddAtIndex(int index, T value)
 }
 
 template<typename T>
-inline void List<T>::DeleteValue(T value)
+inline void List<T>::deleteValue(T value)
 {
-	viewed = 1;
+	elemViewed = 1;
 	int index = 0;
 	Element* current = head;
 	do {
 		if (current->data == value) {
-			DeleteAtIndex(index);
+			deleteAtIndex(index);
 			return;
 		}
 		current = current->next;
-		viewed++;
+		elemViewed++;
 		index++;
 	} while (current != head);
 }
 
 template<typename T>
-inline void List<T>::DeleteAtIndex(int index)
+inline void List<T>::deleteAtIndex(int index)
 {
-	viewed = 1;
+	elemViewed = 1;
 	if (index == 0) {
 		Element* temp = head;
 		Element* current = head;
 		while (current->next != head) {
 			current = current->next;
-			viewed++;
+			elemViewed++;
 		}
 		head = temp->next;
 		current->next = head;
@@ -257,7 +254,7 @@ inline void List<T>::DeleteAtIndex(int index)
 	Element* current = head;
 	while (i < index - 1) {
 		current = current->next;
-		viewed++;
+		elemViewed++;
 		i++;
 	}
 	Element* temp = current->next;
@@ -267,22 +264,22 @@ inline void List<T>::DeleteAtIndex(int index)
 }
 
 template<typename T>
-inline void List<T>::Print()
+inline void List<T>::print()
 {
-	cout << "Список:\n";
-	if (GetSize() == 0) {
-		cout << "Пуст" << endl;
+	std::cout << "Список:\n";
+	if (getSize() == 0) {
+		std::cout << "Пуст" << std::endl;
 	}
-	for (int i = 0; i < GetSize(); i++) {
-		cout << GetValue(i) << endl;
+	for (int i = 0; i < getSize(); i++) {
+		std::cout << getValue(i) << std::endl;
 	}
-	cout << endl;
+	std::cout << std::endl;
 }
 
 template<typename T>
-inline void List<T>::Viewed()
+inline void List<T>::viewed()
 {
-	cout << "Просмотрено элементов в прошлой операции: " << viewed << " \n";
+	std::cout << "Просмотрено элементов в прошлой операции: " << elemViewed << " \n";
 }
 
 template<typename T>
@@ -297,7 +294,7 @@ template<typename T>
 inline List<T>::Iterator List<T>::end()
 {
 	Iterator it;
-	if (!IsEmpty()) {
+	if (!isEmpty()) {
 		it.obj = head;
 		while (it.obj->next != head) {
 			it.obj = it.obj->next;
