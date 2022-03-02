@@ -33,7 +33,7 @@ public:
 	void deleteValue(T value);		// Удаление значения из списка
 	void deleteAtIndex(int index);		// Удаление значения из заданного индекса
 	void print();		// Вывод списка
-	void viewed();		// Вывод кол-во просмотренных э-ов списка
+	int getElemViewed();		// Вывод кол-во просмотренных э-ов списка
 
 	class Iterator
 	{
@@ -277,9 +277,9 @@ inline void List<T>::print()
 }
 
 template<typename T>
-inline void List<T>::viewed()
+inline int List<T>::getElemViewed()
 {
-	std::cout << "Просмотрено элементов в прошлой операции: " << elemViewed << " \n";
+	return elemViewed;
 }
 
 template<typename T>

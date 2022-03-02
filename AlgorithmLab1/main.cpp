@@ -117,7 +117,7 @@ int main()
 				list.print();
 				break;
 			case 13:
-				list.viewed();
+				list.getElemViewed();
 				break;
 			case 14:
 				it = list.begin();
