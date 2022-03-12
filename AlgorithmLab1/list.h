@@ -13,7 +13,7 @@ class List
 		Element* next;
 	};
 
-	int elemViewed = 0;
+	int elemViewed = 1;
 	Element* head;
 	int size; 
 
@@ -41,13 +41,42 @@ public:
 		Element* obj;
 
 		T& operator*();
-		Iterator operator++(int);
-		Iterator operator--(int);
+		Iterator operator++(int) {
+			Iterator it = *this;
+			obj = obj->next;
+			return it;
+		}
+
+		Iterator operator--(int) {
+			Iterator it = *this;
+			Element* target = obj;
+			while (obj->next != target) {
+				obj = obj->next;
+			}
+			return it;
+		}
 		bool operator ==(const Iterator& it);
 		bool operator !=(const Iterator& it);
 	};
-	Iterator begin();
-	Iterator end();
+	Iterator begin() {
+		Iterator it;
+		it.obj = head;
+		return it;
+	}
+	Iterator end() {
+		Iterator it;
+		if (!isEmpty()) {
+			it.obj = head;
+			while (it.obj->next != head) {
+				it.obj = it.obj->next;
+			}
+			return it;
+		}
+		else {
+			it.obj = head;
+			return it;
+		}
+	}
 };
 
 template<typename T>
@@ -89,10 +118,13 @@ inline int List<T>::getSize()
 template<typename T>
 inline void List<T>::clear()
 {
-	while (size > 0) {
-		Element* temp = head;
-		head = head->next;
-		delete temp;
+	while (head) {
+		if (head->next = head) {
+			head->next = nullptr;
+		}
+		Element* next = head->next;
+		delete head;
+		head = next;
 		size--;
 	}
 }
@@ -283,53 +315,9 @@ inline int List<T>::getElemViewed()
 }
 
 template<typename T>
-inline List<T>::Iterator List<T>::begin()
-{
-	Iterator it;
-	it.obj = head;
-	return it;
-}
-
-template<typename T>
-inline List<T>::Iterator List<T>::end()
-{
-	Iterator it;
-	if (!isEmpty()) {
-		it.obj = head;
-		while (it.obj->next != head) {
-			it.obj = it.obj->next;
-		}
-		return it;
-	}
-	else {
-		it.obj = head;
-		return it;
-	}
-}
-
-template<typename T>
 inline T& List<T>::Iterator::operator*()
 {
 	return obj->data;
-}
-
-template<typename T>
-inline List<T>::Iterator List<T>::Iterator::operator++(int)
-{
-	Iterator it = *this;
-	obj = obj->next;
-	return it;
-}
-
-template<typename T>
-inline List<T>::Iterator List<T>::Iterator::operator--(int)
-{
-	Iterator it = *this;
-	Element* target = obj;
-	while (obj->next != target) {
-		obj = obj->next;
-	}
-	return it;
 }
 
 template<typename T>
