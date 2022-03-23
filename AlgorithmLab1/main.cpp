@@ -8,9 +8,10 @@ int main()
 	bool exit = false;
 	int index;
 	TYPE value;
+	TYPE result;
 	List<TYPE> list;
 	List<TYPE>::Iterator it;
-	std::exception outOfList("Выход за пределы списка!");
+	std::exception exception("Исключение");
 
 	while (!exit) {
 		std::cout << "\n\tСПИСОК ОПЕРАЦИЙ\n";
@@ -27,15 +28,16 @@ int main()
 		std::cout << "\t11. Удаление значения из заданного индекса\n";
 		std::cout << "\t12. Вывод списка в консоль\n";
 		std::cout << "\t13. Вывод количество просмотренных элементов списка\n";
-		std::cout << "\t14. Присвоить begin() итератору\n";
-		std::cout << "\t15. Присвоить end() итератору\n";
-		std::cout << "\t16. Выполнить к итератору операцию ++\n";
-		std::cout << "\t17. Выполнить к итератору операцию --\n";
-		std::cout << "\t18. Проверить, равен ли итератор итератору begin()\n";
-		std::cout << "\t19. Проверить, равен ли итератор итератору end()\n";
-		std::cout << "\t20. Проверить, не равен ли итератор итератору begin()\n";
-		std::cout << "\t21. Проверить, не равен ли итератор итератору end()\n";
-		std::cout << "\t22. Выход из программы\n";
+		std::cout << "\t14. Вывести значение итератора\n";
+		std::cout << "\t15. Присвоить begin() итератору\n";
+		std::cout << "\t16. Присвоить end() итератору\n";
+		std::cout << "\t17. Выполнить к итератору операцию ++\n";
+		std::cout << "\t18. Выполнить к итератору операцию --\n";
+		std::cout << "\t19. Проверить, равен ли итератор итератору begin()\n";
+		std::cout << "\t20. Проверить, равен ли итератор итератору end()\n";
+		std::cout << "\t21. Проверить, не равен ли итератор итератору begin()\n";
+		std::cout << "\t22. Проверить, не равен ли итератор итератору end()\n";
+		std::cout << "\t23. Выход из программы\n";
 		std::cout << "\nВведите номер операции: ";
 		std::cin >> sw;
 		try {
@@ -61,7 +63,7 @@ int main()
 					std::cout << list.getValue(index) << std::endl;
 				}
 				else {
-					throw outOfList;
+					throw exception;
 				}
 				break;
 			case 6:
@@ -73,7 +75,7 @@ int main()
 					list.changeValue(index, value);
 				}
 				else {
-					throw outOfList;
+					throw exception;
 				}
 				break;
 			case 7:
@@ -89,13 +91,13 @@ int main()
 			case 9:
 				std::cout << "Введите индекс: ";
 				std::cin >> index;
-				if (index <= list.getSize() - 1) {
+				if (index <= list.getSize() - 1 || list.isEmpty()) {
 					std::cout << "Введите значение: ";
 					std::cin >> value;
 					list.addAtIndex(index, value);
 				}
 				else {
-					throw outOfList;
+					throw exception;
 				}
 				break;
 			case 10:
@@ -110,7 +112,7 @@ int main()
 					list.deleteAtIndex(index);
 				}
 				else {
-					throw outOfList;
+					throw exception;
 				}
 				break;
 			case 12:
@@ -120,30 +122,38 @@ int main()
 				list.getElemViewed();
 				break;
 			case 14:
-				it = list.begin();
+				if (it.obj != nullptr) {
+					std::cout << *it;
+				}
+				else {
+					throw exception;
+				}
 				break;
 			case 15:
-				it = list.end();
+				it = list.begin();
 				break;
 			case 16:
-				it++;
+				it = list.end();
 				break;
 			case 17:
-				it--;
+				it++;
 				break;
 			case 18:
-				std::cout << (it == list.begin());
+				it--;
 				break;
 			case 19:
-				std::cout << (it == list.end());
+				std::cout << (it == list.begin());
 				break;
 			case 20:
-				std::cout << (it != list.begin());
+				std::cout << (it == list.end());
 				break;
 			case 21:
-				std::cout << (it != list.end());
+				std::cout << (it != list.begin());
 				break;
 			case 22:
+				std::cout << (it != list.end());
+				break;
+			case 23:
 				exit = true;
 				break;
 			default:
