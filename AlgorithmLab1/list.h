@@ -18,22 +18,22 @@ class List
 	int size; 
 
 public:
-	List();		// К-ор
-	~List();	// Д-ор
-	List(const List& obj);		// К-ор копирования
-	int getSize();		// Размер списка
-	void clear();		// Очистка списка
-	bool isEmpty();		// Проверка на пустоту
-	bool isContain(T value);		// Содержит ли заданное значение 
-	T getValue(int index);		// Чтение значения под индексом
-	void changeValue(int index, T value);		// Изменение значения под индексом
-	int getIndex(T value);		// Получение позиции в списке для заданного значения
-	void add(T value);		// Включение нового значения
-	void addAtIndex(int index, T value);		// Включение нового значения с индексом
-	void deleteValue(T value);		// Удаление значения из списка
-	void deleteAtIndex(int index);		// Удаление значения из заданного индекса
-	void print();		// Вывод списка
-	int getElemViewed();		// Вывод кол-во просмотренных э-ов списка
+	List();									// К-ор
+	~List();								// Д-ор
+	List(const List& obj);					// К-ор копирования
+	int getSize();							// Размер списка
+	void clear();							// Очистка списка
+	bool isEmpty();							// Проверка на пустоту
+	bool isContain(T value);				// Содержит ли заданное значение 
+	T getValue(int index);					// Чтение значения под индексом
+	void changeValue(int index, T value);	// Изменение значения под индексом
+	int getIndex(T value);					// Получение позиции в списке для заданного значения
+	void add(T value);						// Включение нового значения
+	void addAtIndex(int index, T value);	// Включение нового значения с индексом
+	void deleteValue(T value);				// Удаление значения из списка
+	void deleteAtIndex(int index);			// Удаление значения из заданного индекса
+	void print();							// Вывод списка
+	int getElemViewed();					// Вывод кол-во просмотренных э-ов списка
 
 	class Iterator
 	{
